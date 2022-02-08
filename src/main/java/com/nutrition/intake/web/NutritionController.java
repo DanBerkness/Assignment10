@@ -1,5 +1,7 @@
 package com.nutrition.intake.web;
 
+import java.util.Optional;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,17 +17,17 @@ public class NutritionController {
 
 	@GetMapping("mealplanner/week")
 	public ResponseEntity<WeekResponse> getWeekMeals(@RequestParam (required = false) String numCalories,
-													 @RequestParam (required = false) String diet,
-													 @RequestParam (required = false) String exclusions) {
+													 @RequestParam Optional<String> diet,
+													 @RequestParam Optional<String> exclusions) {
 		
 		SpoonacularWeekIntegration weekResponse = new SpoonacularWeekIntegration();
 		return weekResponse.getWeekApi(numCalories, diet, exclusions);
 	}
 
 	@GetMapping("mealplanner/day")
-	public ResponseEntity<DayResponse> getDayMeals(@RequestParam (required = false) String numCalories,
-												   @RequestParam (required = false) String diet,
-												   @RequestParam (required = false) String exclusions) {
+	public ResponseEntity<DayResponse> getDayMeals(@RequestParam(required = false) String numCalories,
+												   @RequestParam Optional<String> diet,
+												   @RequestParam Optional<String> exclusions) {
 		
 		SpoonacularDayIntegration dayResponse = new SpoonacularDayIntegration();
 		return dayResponse.getDayApi(numCalories, diet, exclusions);
